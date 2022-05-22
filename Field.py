@@ -13,7 +13,4 @@ class Field:
     def setReward(self, reward):
         self.reward = reward
 
-    def __str__(self):
-        strin: str = str(self.reward)
-        return strin
 

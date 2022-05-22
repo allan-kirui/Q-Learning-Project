@@ -5,8 +5,12 @@ from Field import Field
 
 class Board:
     board = None
+    row = None
+    col = None
 
-    def __init__(self):
+    def __init__(self,row,col):
+        self.row = row
+        self.col = col
         fieldBlack = Field(-100)
         fieldWhite = Field(-1)
         fieldGreen = Field(100)
@@ -36,7 +40,5 @@ class Board:
             print(" ")
 
 
-if __name__ == '__main__':
-    boards = Board()
-    boards.print_board()
+
 
