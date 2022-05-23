@@ -1,19 +1,22 @@
 import pygame
+import Colors as color
+
+WINDOW_WIDTH = 640
+WINDOW_HEIGHT = 480
+MARGIN = 5
 
 class Window:
+
+    def __init__(self):
+        self.BOARD_SIZE
+
     def run(self):
 
-        black = (0, 0, 0)
-        white = (255, 255, 255)
 
-        red = (255, 0, 0)
-        WIDTH = 20
-        HEIGHT = 20
-        MARGIN = 5
         grid = []
-        for row in range(10):
+        for row in range(BOARD_SIZE):
             grid.append([])
-            for column in range(10):
+            for column in range(BOARD_SIZE):
                 grid[row].append(0)
         grid[1][5] = 1
         pygame.init()
