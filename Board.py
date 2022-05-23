@@ -6,7 +6,7 @@ from Field import Field
 class Board:
     IKON_WALL = '#'
     IKON_PATH = '.'
-    IKON_TARGET = 'S'
+    IKON_TARGET = 'Q'
     IKON_QUEPASA = '?'
     IKON_SEPPARATOR = ' '
     PTS_WALL = -100
