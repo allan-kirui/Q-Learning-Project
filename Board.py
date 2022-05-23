@@ -17,9 +17,7 @@ class Board:
     row = None
     col = None
 
-
-
-    def __init__(self,row,col):
+    def __init__(self, row, col):
         self.row = row
         self.col = col
         fieldBlack = Field(self.PTS_WALL)
@@ -45,48 +43,45 @@ class Board:
                 self.board[row][col] = fieldWhite
 
     def print_board_head(self):
-    #{
+        # {
         print("\t ", end="")
         for col in range(self.col):
-        #{
+            # {
             print(col, end=self.IKON_SEPPARATOR)
-        #}
+        # }
         print()
         print("\t ", end="")
         for col in range(self.col):
-        #{
+            # {
             print(" ", end=self.IKON_SEPPARATOR)
-        #}
+        # }
         print()
-    #}
+
+    # }
     def print_board(self):
         self.print_board_head()
         for row in range(self.row):
-        #{
+            # {
             print(row, end="\t ")
             for col in range(self.col):
-            #{
+                # {
                 if self.board[row][col].reward == self.PTS_WALL:
-                #{
+                    # {
                     print(self.IKON_WALL, end=self.IKON_SEPPARATOR)
-                #}
+                # }
                 elif self.board[row][col].reward == self.PTS_TARGER:
-                #{
+                    # {
                     print(self.IKON_TARGET, end=self.IKON_SEPPARATOR)
-                #}
+                # }
                 elif self.board[row][col].reward == self.PTS_PATH:
-                #{
+                    # {
                     print(self.IKON_PATH, end=self.IKON_SEPPARATOR)
-                #}
+                # }
                 else:
-                #{
+                    # {
                     print(self.IKON_QUEPASA, end=self.IKON_SEPPARATOR)
-                #}
-                #print(self.board[row][col].reward,end=" ")
-            #}
+                # }
+                # print(self.board[row][col].reward,end=" ")
+            # }
             print(" ")
-        #}
-
-
-
-
+        # }
