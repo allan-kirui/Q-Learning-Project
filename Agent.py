@@ -5,6 +5,8 @@ actions = ['up', 'right', 'down', 'left']
 
 
 class Agent:
+    TRAINING_SESSIONS_NUMBER = 1000
+
     pos_row = None
     pos_col = None
     environment_row = None
@@ -77,8 +79,7 @@ class Agent:
 
     # Training the agent
     def train(self):
-        # 1000 training sessions
-        for episode in range(1000):
+        for episode in range(self.TRAINING_SESSIONS_NUMBER):
             current_row, current_col = self.get_starting_field()
 
             while not self.is_black_field(self, current_row, current_col):
