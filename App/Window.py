@@ -1,5 +1,5 @@
 import pygame
-from Board import Colors
+from App import Colors
 from Board.Board import Board
 
 MARGIN = 5
