@@ -99,3 +99,9 @@ class Board:
     def setFieldPoints(self, col, row, points):
         self.board[col][row] = points
         return
+
+    def isWall(self, col, row):
+        if self.board[col][row] == PTS_WALL:
+            return True
+        else:
+            return False
