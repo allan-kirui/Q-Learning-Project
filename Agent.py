@@ -28,7 +28,7 @@ class Agent:
 
     @staticmethod
     def is_black_field(self, current_row, current_col):
-        if self.board.board[current_row][current_col].reward == -1:
+        if self.board.board[current_row][current_col] == -1:
             return False
         else:
             return True
@@ -38,7 +38,7 @@ class Agent:
         current_row = np.random.randint(self.environment_row)
         current_col = np.random.randint(self.environment_col)
 
-        while self.is_black_field(self, current_row, current_col):
+        while self.board.isWall(self, current_row, current_col):
             current_row = np.random.randint(self.environment_row)
             current_col = np.random.randint(self.environment_col)
         return current_row, current_col
@@ -86,7 +86,7 @@ class Agent:
                 action = self.get_next_action(current_row, current_col, self.epsilon)
                 old_row, old_col = current_row, current_col
                 current_row, current_col = self.get_next_loc(current_row, current_col, action)
-                reward = self.board.board[current_row][current_col].reward
+                reward = self.board.board[current_row][current_col]
                 old_q_val = self.q_values[old_row, old_col, action]
                 temporal_difference = reward + (self.discount_factor * np.max(
                     self.q_values[current_row, current_col])) - old_q_val

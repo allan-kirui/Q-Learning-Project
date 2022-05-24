@@ -11,8 +11,8 @@ PTS_TARGER = 100
 PTS_QUEPASA = 0
 BOARD_TEMPLATE = BoardTemplates.TEMPLATE_1
 
-class Board:
 
+class Board:
     rows = None
     cols = None
     board = None
@@ -27,7 +27,6 @@ class Board:
         print(self.board)
         self.printBoard()
         return
-
 
     def fillBoard(self):
         self.board = []
@@ -47,7 +46,6 @@ class Board:
             self.board.append(arr)
 
         return
-
 
     def printBoardHead(self):
         print("\t ", end="")
@@ -86,7 +84,6 @@ class Board:
 
         return
 
-
     def getBoardRows(self):
         return self.rows
 
@@ -98,7 +95,6 @@ class Board:
 
     def setFieldPoints(self, col, row, points):
         self.board[col][row] = points
-        return
 
     def isWall(self, col, row):
         if self.board[col][row] == PTS_WALL:
