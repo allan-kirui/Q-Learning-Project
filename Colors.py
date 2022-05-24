@@ -1,5 +1,9 @@
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
-DARKBLUE = (20, 20, 220)
-CYAN = (0, 0xff, 0xff)
+DARK_BLUE = (20, 20, 220)
+CYAN = (0, 0xFF, 0xFF)
+RED = (0xFF, 0, 0)
+DARK_RED = (0x88, 0, 0)
+GREEN = (0, 0xFF, 0)
+DARK_GREY = (0x40, 0x40, 0x40)

@@ -1,87 +1,96 @@
-import numpy as np
+import BoardTemplates
 
-from Field import Field
-
+IKON_WALL = '#'
+IKON_PATH = '.'
+IKON_TARGET = 'Q'
+IKON_QUEPASA = '?'
+IKON_SEPPARATOR = ' '
+PTS_WALL = -100
+PTS_PATH = -1
+PTS_TARGER = 100
+PTS_QUEPASA = 0
+BOARD_TEMPLATE = BoardTemplates.TEMPLATE_1
 
 class Board:
-    IKON_WALL = '#'
-    IKON_PATH = '.'
-    IKON_TARGET = 'Q'
-    IKON_QUEPASA = '?'
-    IKON_SEPPARATOR = ' '
-    PTS_WALL = -100
-    PTS_PATH = -1
-    PTS_TARGER = 100
 
+    rows = None
+    cols = None
     board = None
-    row = None
-    col = None
+    boardTemplate = None
 
-    def __init__(self, row, col):
-        self.row = row
-        self.col = col
-        fieldBlack = Field(self.PTS_WALL)
-        fieldWhite = Field(self.PTS_PATH)
-        fieldGreen = Field(self.PTS_TARGER)
-        self.board = [[fieldBlack for i in range(self.row)] for j in range(self.col)]
-        self.board[0][5] = fieldGreen
+    def __init__(self):
+        print(":: INITIATING BOARD ::")
+        self.rows = len(BOARD_TEMPLATE)
+        self.cols = len(BOARD_TEMPLATE[0])
+        self.boardTemplate = BOARD_TEMPLATE
+        self.fillBoard()
+        self.printBoard()
+        return
 
-        aisles = {}  # store locations in a dictionary
-        aisles[1] = [i for i in range(1, 10)]
-        aisles[2] = [1, 7, 9]
-        aisles[3] = [i for i in range(1, 8)]
-        aisles[3].append(9)
-        aisles[4] = [3, 7]
-        aisles[5] = [i for i in range(11)]
-        aisles[6] = [5]
-        aisles[7] = [i for i in range(1, 10)]
-        aisles[8] = [3, 7]
-        aisles[9] = [i for i in range(11)]
 
-        for row in range(1, 10):
-            for col in aisles[row]:
-                self.board[row][col] = fieldWhite
-
-    def print_board_head(self):
-        # {
-        print("\t ", end="")
-        for col in range(self.col):
-            # {
-            print(col, end=self.IKON_SEPPARATOR)
-        # }
-        print()
-        print("\t ", end="")
-        for col in range(self.col):
-            # {
-            print(" ", end=self.IKON_SEPPARATOR)
-        # }
-        print()
-
-    # }
-    def print_board(self):
-        self.print_board_head()
-        for row in range(self.row):
-            # {
-            print(row, end="\t ")
-            for col in range(self.col):
-                # {
-                if self.board[row][col].reward == self.PTS_WALL:
-                    # {
-                    print(self.IKON_WALL, end=self.IKON_SEPPARATOR)
-                # }
-                elif self.board[row][col].reward == self.PTS_TARGER:
-                    # {
-                    print(self.IKON_TARGET, end=self.IKON_SEPPARATOR)
-                # }
-                elif self.board[row][col].reward == self.PTS_PATH:
-                    # {
-                    print(self.IKON_PATH, end=self.IKON_SEPPARATOR)
-                # }
+    def fillBoard(self):
+        self.board = []
+        for row in range(self.rows):
+            arr = []
+            for col in range(self.cols):
+                ikon = self.boardTemplate[row][col]
+                if ikon == IKON_PATH:
+                    arr.append(PTS_PATH)
+                elif ikon == IKON_WALL:
+                    arr.append(PTS_WALL)
+                elif ikon == IKON_TARGET:
+                    arr.append(PTS_TARGER)
                 else:
-                    # {
-                    print(self.IKON_QUEPASA, end=self.IKON_SEPPARATOR)
-                # }
+                    arr.append(PTS_QUEPASA)
+
+            self.board.append(arr)
+
+        return
+
+
+    def printBoardHead(self):
+        print("\t ", end="")
+        for col in range(self.cols):
+            print(col, end=IKON_SEPPARATOR)
+
+        print()
+        print("\t ", end="")
+        for col in range(self.cols):
+            print(" ", end=IKON_SEPPARATOR)
+
+        print()
+        return
+
+    def printBoard(self):
+        self.printBoardHead()
+        for row in range(self.rows):
+            print(row, end="\t ")
+            for col in range(self.cols):
+                points = self.board[row][col]
+                if points == PTS_WALL:
+                    print(IKON_WALL, end=IKON_SEPPARATOR)
+
+                elif points == PTS_TARGER:
+                    print(IKON_TARGET, end=IKON_SEPPARATOR)
+
+                elif points == PTS_PATH:
+                    print(IKON_PATH, end=IKON_SEPPARATOR)
+
+                else:
+                    print(IKON_QUEPASA, end=IKON_SEPPARATOR)
+
                 # print(self.board[row][col].reward,end=" ")
-            # }
+
             print(" ")
-        # }
+
+        return
+
+
+    def getBoardRows(self):
+        return self.rows
+
+    def getBoardCols(self):
+        return self.cols
+
+    def getFieldPoints(self, col, row):
+        return self.board[col][row]

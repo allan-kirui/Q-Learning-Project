@@ -1,55 +1,71 @@
 import pygame
-import Colors as color
+import Colors
+from Board import Board
 
-WINDOW_WIDTH = 640
-WINDOW_HEIGHT = 480
 MARGIN = 5
+FIELD_SIZE = 20
+FPS = 60
+COLOR_BACKGROUND = Colors.BLACK
+COLOR_PATH = Colors.DARK_GREY
+COLOR_WALL = Colors.DARK_RED
+COLOR_TARGET = Colors.GREEN
 
 class Window:
 
+    grid = None
+    board = None
+    windowWidth = None
+    windowHeight = None
+
     def __init__(self):
-        self.BOARD_SIZE
+        self.grid = []
+        self.board = Board()
+        self.windowWidth = self.board.getBoardCols() * (FIELD_SIZE + MARGIN) + 5
+        self.windowHeight = self.board.getBoardRows() * (FIELD_SIZE + MARGIN) + 5
+
 
     def run(self):
-
-
-        grid = []
-        for row in range(BOARD_SIZE):
-            grid.append([])
-            for column in range(BOARD_SIZE):
-                grid[row].append(0)
-        grid[1][5] = 1
         pygame.init()
-        window_size = [255, 255]
-        scr = pygame.display.set_mode(window_size)
+        scr = pygame.display.set_mode([self.windowWidth, self.windowHeight])
         pygame.display.set_caption("Grid")
-        done = False
+        quit = False
         clock = pygame.time.Clock()
-        while not done:
+        while not quit:
             for event in pygame.event.get():
+
                 if event.type == pygame.QUIT:
-                    done = True
+                    quit = True
+                    break
+
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     pos = pygame.mouse.get_pos()
-                    column = pos[0] // (WIDTH + MARGIN)
-                    row = pos[1] // (HEIGHT + MARGIN)
+                    column = pos[0] // (FIELD_SIZE + MARGIN)
+                    row = pos[1] // (FIELD_SIZE + MARGIN)
                     grid[row][column] = 1
                     print("Click ", pos, "Grid coordinates: ", row, column)
-            scr.fill(black)
-            for row in range(10):
-                for column in range(10):
-                    color = white
-                    if grid[row][column] == 1:
-                        color = red
+
+            scr.fill(COLOR_BACKGROUND)
+
+            for row in range(self.board.getBoardRows()):
+                for col in range(self.board.getBoardCols()):
+                    color = COLOR_PATH
+                    points = self.board.getFieldPoints(row, col)
+                    if points< -50:
+                        color = COLOR_WALL
+                    if points > 50:
+                        color = COLOR_TARGET
+
                     pygame.draw.rect(scr,
                                      color,
-                                     [(MARGIN + WIDTH) * column + MARGIN,
-                                      (MARGIN + HEIGHT) * row + MARGIN,
-                                      WIDTH,
-                                      HEIGHT])
-            clock.tick(50)
+                                     [(MARGIN + FIELD_SIZE) * col + MARGIN,
+                                      (MARGIN + FIELD_SIZE) * row + MARGIN,
+                                      FIELD_SIZE,
+                                      FIELD_SIZE])
+
+            clock.tick(FPS)
             pygame.display.flip()
         pygame.quit()
 
 if __name__ == '__main__':
-    Window().run()
+    window = Window()
+    window.run()

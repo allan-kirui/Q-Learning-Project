@@ -3,7 +3,7 @@ from Board import Board
 
 if __name__ == '__main__':
     board = Board(11,11)
-    board.print_board()
+    board.printBoard()
 
     agent = Agent(board,11,11)
     agent.train()
