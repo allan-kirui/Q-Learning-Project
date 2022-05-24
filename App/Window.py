@@ -1,7 +1,7 @@
 import pygame
 
 from Agent import Agent
-from App import Colors
+import Colors
 from Board.Board import Board
 
 MARGIN = 5
