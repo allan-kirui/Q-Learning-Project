@@ -1,5 +1,7 @@
 import pygame
-import Colors
+
+from Agent import Agent
+from App import Colors
 from Board.Board import Board
 
 MARGIN = 5
@@ -17,12 +19,15 @@ class Window:
 
     grid = None
     board = None
+    agent = None
     windowWidth = None
     windowHeight = None
 
     def __init__(self):
         self.grid = []
         self.board = Board()
+        self.agent = Agent(self.board)
+        self.agent.train()
         self.windowWidth = self.board.getBoardCols() * (FIELD_SIZE + MARGIN) + 5
         self.windowHeight = self.board.getBoardRows() * (FIELD_SIZE + MARGIN) + 5
 
