@@ -5,10 +5,13 @@ from Board import Board
 MARGIN = 5
 FIELD_SIZE = 20
 FPS = 60
+
 COLOR_BACKGROUND = Colors.BLACK
 COLOR_PATH = Colors.DARK_GREY
 COLOR_WALL = Colors.DARK_RED
 COLOR_TARGET = Colors.GREEN
+
+WINDOW_NAME = "AI Project ML AK"
 
 class Window:
 
@@ -27,7 +30,7 @@ class Window:
     def run(self):
         pygame.init()
         scr = pygame.display.set_mode([self.windowWidth, self.windowHeight])
-        pygame.display.set_caption("Grid")
+        pygame.display.set_caption(WINDOW_NAME)
         quit = False
         clock = pygame.time.Clock()
         while not quit:
