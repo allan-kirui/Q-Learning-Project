@@ -101,7 +101,7 @@ class Board:
         return
 
     def isWall(self, row, col):
-        if self.board[row][col] == PTS_WALL:
-            return True
-        else:
+        if self.board[row][col] == PTS_PATH:
             return False
+        else:
+            return True

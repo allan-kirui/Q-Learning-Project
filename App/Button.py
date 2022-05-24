@@ -29,7 +29,7 @@ class Button:
     def show(self):
         self.screen.blit(self.surface, (self.x, self.y))
 
-    def click(self, event):
+    def clickMove(self, event):
         x, y = pygame.mouse.get_pos()
         if event.type == pygame.MOUSEBUTTONDOWN:
             if pygame.mouse.get_pressed()[0]:

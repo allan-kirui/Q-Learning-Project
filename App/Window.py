@@ -14,6 +14,7 @@ COLOR_BACKGROUND = Colors.BLACK
 COLOR_PATH = Colors.WHITE
 COLOR_WALL = Colors.DARK_GREY
 COLOR_TARGET = Colors.CYAN
+COLOR_AGENT= Colors.PINK
 
 WINDOW_NAME = "AI Project ML AK"
 
@@ -26,6 +27,7 @@ class Window:
     windowWidth = None
     windowHeight = None
     scr = None
+    path = None
 
     def __init__(self):
         self.grid = []
@@ -35,11 +37,11 @@ class Window:
         pygame.init()
         self.scr = pygame.display.set_mode([self.windowWidth, self.windowHeight])
         self.button = Button(self.scr,
-                             "Click here",
+                             "Move",
                              (BUTTON_X, BUTTON_Y),
                              font=30,
                              bg="navy",
-                             feedback="You clicked me")
+                             feedback="Moved")
 
         self.agent = Agent(self.board)
         self.agent.train()
@@ -57,7 +59,9 @@ class Window:
                     pos = pygame.mouse.get_pos()
                     column = pos[0] // (FIELD_SIZE + MARGIN)
                     row = pos[1] // (FIELD_SIZE + MARGIN)
-                self.button.click(event)
+                if self.button.clickMove(event):
+                    self.path = self.agent.get_shortest_path(3,9)
+
 
             self.scr.fill(COLOR_BACKGROUND)
             self.button.show()
@@ -69,6 +73,9 @@ class Window:
                         color = COLOR_WALL
                     if points > 50:
                         color = COLOR_TARGET
+                    field = [row, col]
+                    if self.path is not None and field in self.path:
+                        color = COLOR_AGENT
 
                     pygame.draw.rect(self.scr,
                                      color,
@@ -77,8 +84,8 @@ class Window:
                                       FIELD_SIZE,
                                       FIELD_SIZE])
 
-            clock.tick(FPS)
             pygame.display.flip()
+            clock.tick(FPS)
         pygame.quit()
 
 
