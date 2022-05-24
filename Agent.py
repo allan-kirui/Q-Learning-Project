@@ -26,19 +26,12 @@ class Agent:
         self.discount_factor = 0.9
         self.learning_rate = 0.9
 
-    @staticmethod
-    def is_black_field(self, current_row, current_col):
-        if self.board.board[current_row][current_col] == -1:
-            return False
-        else:
-            return True
-
     # Chooses a random, non-black field
     def get_starting_field(self):
         current_row = np.random.randint(self.environment_row)
         current_col = np.random.randint(self.environment_col)
 
-        while self.board.isWall(self, current_row, current_col):
+        while self.board.isWall(current_row, current_col):
             current_row = np.random.randint(self.environment_row)
             current_col = np.random.randint(self.environment_col)
         return current_row, current_col
@@ -66,12 +59,12 @@ class Agent:
         return next_row, next_col
 
     def get_shortest_path(self, start_row, start_col):
-        if self.is_black_field(self, start_row, start_col):
+        if self.board.isWall(self, start_row, start_col):
             return []
         else:
             current_row, current_col = start_row, start_col
             shortest_path = [[current_row, current_col]]
-            while not self.is_black_field(self, current_row, current_col):
+            while not self.board.isWall( current_row, current_col):
                 action = self.get_next_action(current_row, current_col, 1)
                 current_row, current_col = self.get_next_loc(current_row, current_col, action)
                 shortest_path.append([current_row, current_col])
@@ -82,7 +75,7 @@ class Agent:
         for episode in range(self.TRAINING_SESSIONS_NUMBER):
             current_row, current_col = self.get_starting_field()
 
-            while not self.is_black_field(self, current_row, current_col):
+            while not self.board.isWall( current_row, current_col):
                 action = self.get_next_action(current_row, current_col, self.epsilon)
                 old_row, old_col = current_row, current_col
                 current_row, current_col = self.get_next_loc(current_row, current_col, action)
