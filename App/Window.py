@@ -1,6 +1,6 @@
 import pygame
-import Colors
-from Board import Board
+from Board import Colors
+from Board.Board import Board
 
 MARGIN = 5
 FIELD_SIZE = 20

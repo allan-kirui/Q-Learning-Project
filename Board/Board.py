@@ -1,7 +1,7 @@
-import BoardTemplates
+from Board import BoardTemplates
 
 IKON_WALL = '#'
-IKON_PATH = '.'
+IKON_PATH = '..'
 IKON_TARGET = 'Q'
 IKON_QUEPASA = '?'
 IKON_SEPPARATOR = ' '
