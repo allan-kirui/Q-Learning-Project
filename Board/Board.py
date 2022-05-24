@@ -1,7 +1,7 @@
 from Board import BoardTemplates
 
 IKON_WALL = '#'
-IKON_PATH = '..'
+IKON_PATH = '.'
 IKON_TARGET = 'Q'
 IKON_QUEPASA = '?'
 IKON_SEPPARATOR = ' '
@@ -24,6 +24,7 @@ class Board:
         self.cols = len(BOARD_TEMPLATE[0])
         self.boardTemplate = BOARD_TEMPLATE
         self.fillBoard()
+        print(self.board)
         self.printBoard()
         return
 
