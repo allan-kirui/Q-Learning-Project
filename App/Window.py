@@ -1,5 +1,4 @@
 import pygame
-
 from Agent import Agent
 import Colors
 from Board.Board import Board
@@ -14,7 +13,7 @@ COLOR_BACKGROUND = Colors.BLACK
 COLOR_PATH = Colors.WHITE
 COLOR_WALL = Colors.DARK_GREY
 COLOR_TARGET = Colors.CYAN
-COLOR_AGENT= Colors.PINK
+COLOR_AGENT = Colors.PINK
 
 WINDOW_NAME = "AI Project ML AK"
 
@@ -60,11 +59,11 @@ class Window:
                     column = pos[0] // (FIELD_SIZE + MARGIN)
                     row = pos[1] // (FIELD_SIZE + MARGIN)
                 if self.button.clickMove(event):
-                    self.path = self.agent.get_shortest_path(3,9)
-
+                    self.path = self.agent.get_shortest_path(3, 9)
 
             self.scr.fill(COLOR_BACKGROUND)
             self.button.show()
+
             for row in range(self.board.getBoardRows()):
                 for col in range(self.board.getBoardCols()):
                     color = COLOR_PATH

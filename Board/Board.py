@@ -86,7 +86,6 @@ class Board:
 
         return
 
-
     def getBoardRows(self):
         return self.rows
 
