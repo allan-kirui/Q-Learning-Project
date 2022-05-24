@@ -17,10 +17,10 @@ class Agent:
     discount_factor = None
     learning_rate = None
 
-    def __init__(self, board, row, col):
+    def __init__(self, board):
         self.board = board
-        self.environment_row = board.row
-        self.environment_col = board.col
+        self.environment_row = board.getBoardRows()
+        self.environment_col = board.getBoardCols()
         self.q_values = np.zeros((self.environment_row, self.environment_col, 4))
         self.epsilon = 0.9
         self.discount_factor = 0.9

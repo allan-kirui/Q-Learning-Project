@@ -9,7 +9,7 @@ PTS_WALL = -100
 PTS_PATH = -1
 PTS_TARGER = 100
 PTS_QUEPASA = 0
-BOARD_TEMPLATE = BoardTemplates.TEMPLATE_2
+BOARD_TEMPLATE = BoardTemplates.TEMPLATE_1
 
 class Board:
 
