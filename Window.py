@@ -32,17 +32,9 @@ class Window:
         clock = pygame.time.Clock()
         while not quit:
             for event in pygame.event.get():
-
                 if event.type == pygame.QUIT:
                     quit = True
                     break
-
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    pos = pygame.mouse.get_pos()
-                    column = pos[0] // (FIELD_SIZE + MARGIN)
-                    row = pos[1] // (FIELD_SIZE + MARGIN)
-                    grid[row][column] = 1
-                    print("Click ", pos, "Grid coordinates: ", row, column)
 
             scr.fill(COLOR_BACKGROUND)
 

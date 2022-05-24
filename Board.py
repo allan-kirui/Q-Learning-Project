@@ -94,3 +94,7 @@ class Board:
 
     def getFieldPoints(self, col, row):
         return self.board[col][row]
+
+    def setFieldPoints(self, col, row, points):
+        self.board[col][row] = points
+        return
