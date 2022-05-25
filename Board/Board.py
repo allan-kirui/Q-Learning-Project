@@ -1,13 +1,17 @@
+from random import random
+
+import numpy as np
+
 from Board import BoardTemplates
 
-IKON_WALL = '#'
-IKON_PATH = '.'
-IKON_TARGET = 'Q'
+WALL_ICON = '#'
+PATH_ICON = '.'
+TARGET_ICON = 'Q'
 IKON_QUEPASA = '?'
 IKON_SEPPARATOR = ' '
 PTS_WALL = -100
 PTS_PATH = -1
-PTS_TARGER = 100
+PTS_TARGET = 100
 PTS_QUEPASA = 0
 BOARD_TEMPLATE = BoardTemplates.TEMPLATE_1
 
@@ -34,13 +38,13 @@ class Board:
         for row in range(self.rows):
             arr = []
             for col in range(self.cols):
-                ikon = self.boardTemplate[row][col]
-                if ikon == IKON_PATH:
+                icon = self.boardTemplate[row][col]
+                if icon == PATH_ICON:
                     arr.append(PTS_PATH)
-                elif ikon == IKON_WALL:
+                elif icon == WALL_ICON:
                     arr.append(PTS_WALL)
-                elif ikon == IKON_TARGET:
-                    arr.append(PTS_TARGER)
+                elif icon == TARGET_ICON:
+                    arr.append(PTS_TARGET)
                 else:
                     arr.append(PTS_QUEPASA)
 
@@ -48,6 +52,13 @@ class Board:
 
         return
 
+    def randomStart(self):
+        pos_row = np.random.randint(self.rows)
+        pos_col = np.random.randint(self.cols)
+        while self.boardTemplate[pos_row][pos_col] != PATH_ICON:
+            pos_row = np.random.randint(self.rows)
+            pos_col = np.random.randint(self.cols)
+        return pos_row, pos_col
 
     def printBoardHead(self):
         print("\t ", end="")
@@ -69,13 +80,13 @@ class Board:
             for col in range(self.cols):
                 points = self.board[row][col]
                 if points == PTS_WALL:
-                    print(IKON_WALL, end=IKON_SEPPARATOR)
+                    print(WALL_ICON, end=IKON_SEPPARATOR)
 
-                elif points == PTS_TARGER:
-                    print(IKON_TARGET, end=IKON_SEPPARATOR)
+                elif points == PTS_TARGET:
+                    print(TARGET_ICON, end=IKON_SEPPARATOR)
 
                 elif points == PTS_PATH:
-                    print(IKON_PATH, end=IKON_SEPPARATOR)
+                    print(PATH_ICON, end=IKON_SEPPARATOR)
 
                 else:
                     print(IKON_QUEPASA, end=IKON_SEPPARATOR)

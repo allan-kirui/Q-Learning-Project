@@ -23,18 +23,26 @@ class Window:
     board = None
     buttonMove = None
     buttonReset = None
+    buttonRandom = None
     agent = None
     windowWidth = None
     windowHeight = None
     scr = None
     path = None
 
+
     def initButtons(self, scr, button_x, button_y):
         self.buttonMove = Button(scr,
                                  "Move",
                                  (button_x, button_y),
                                  font=30,
-                                 feedback="Moved")
+                                 feedback="Move")
+
+        self.buttonRandom = Button(scr,
+                                 "Randomize",
+                                 (button_x, button_y-100),
+                                 font=30,
+                                 feedback="Randomize")
 
         self.buttonReset = Button(scr,
                                   "Reset",
@@ -45,6 +53,7 @@ class Window:
     def showButtons(self):
         self.buttonMove.show()
         self.buttonReset.show()
+        self.buttonRandom.show()
 
     def __init__(self):
         self.grid = []
@@ -53,7 +62,7 @@ class Window:
         self.windowHeight = 300  # self.board.getBoardRows() * (FIELD_SIZE + MARGIN) + 5
         pygame.init()
         self.scr = pygame.display.set_mode([self.windowWidth, self.windowHeight])
-        self.initButtons(self.scr,BUTTON_X,BUTTON_Y)
+        self.initButtons(self.scr, BUTTON_X, BUTTON_Y)
         self.agent = Agent(self.board)
         self.agent.setAgentPosition(3, 9)
         self.agent.train()
@@ -75,8 +84,10 @@ class Window:
                     pos = self.agent.getAgentPosition()
                     self.path = self.agent.get_shortest_path(pos[0], pos[1])
                 if self.buttonReset.clickMove(event):
-                    pos = self.agent.getAgentPosition()
                     self.path = []
+                if self.buttonRandom.clickMove(event):
+                    pos = self.board.randomStart()
+                    self.agent.setAgentPosition(pos[0], pos[1])
 
             self.scr.fill(COLOR_BACKGROUND)
 

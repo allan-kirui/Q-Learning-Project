@@ -38,7 +38,8 @@ class Button:
                 if self.rect.collidepoint(x, y):
                     if self.bg == "red":
                         self.bg = "navy"
-                    else:  self.bg = "red"
+                    else:
+                        self.bg = "red"
                     self.change_text(self.feedback)
 
                     return True
