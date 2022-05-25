@@ -1,7 +1,7 @@
 import pygame
 from Agent import Agent
 import Colors
-from Board.Board import Board
+from Board.Board import Board, PATH_ICON
 from Button import Button
 
 MARGIN = 5
@@ -94,8 +94,9 @@ class Window:
                     col = pos[0] // (FIELD_SIZE + MARGIN)
                     row = pos[1] // (FIELD_SIZE + MARGIN)
                     if 0 <= row <= self.board.getBoardRows() and 0 <= col <= self.board.getBoardCols():
-                        self.agent.setAgentPosition(row, col)
-                        self.path = []
+                        if self.board.boardTemplate[row][col] == PATH_ICON:
+                            self.agent.setAgentPosition(row, col)
+                            self.path = []
 
                 self.buttonActions(event)
 
