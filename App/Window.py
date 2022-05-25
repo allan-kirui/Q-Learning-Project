@@ -1,7 +1,8 @@
 import pygame
 from Agent import Agent
-import Colors
-from Board.Board import Board, PATH_ICON
+from Contstants import Colors
+from Contstants import FieldConstants as fc
+from Board.Board import Board
 from Button import Button
 
 MARGIN = 5
@@ -13,10 +14,10 @@ BUTTONS_POS_X = 20
 BUTTONS_POS_Y = 20
 BUTTONS_SPACING = 50
 COLOR_BACKGROUND = Colors.BLACK
-COLOR_PATH = Colors.WHITE
-COLOR_WALL = Colors.DARK_GREY
-COLOR_TARGET = Colors.CYAN
 COLOR_AGENT = Colors.PINK
+FIELDS = fc.FIELDS
+INDEX_WALL = fc.INDEX_WALL
+
 
 WINDOW_NAME = "AI Project ML AK"
 
@@ -94,7 +95,7 @@ class Window:
                     col = pos[0] // (FIELD_SIZE + MARGIN)
                     row = pos[1] // (FIELD_SIZE + MARGIN)
                     if 0 <= row <= self.board.getBoardRows() and 0 <= col <= self.board.getBoardCols():
-                        if self.board.boardTemplate[row][col] == PATH_ICON:
+                        if not self.board.isWall(row, col):
                             self.agent.setAgentPosition(row, col)
                             self.path = []
 
@@ -106,12 +107,12 @@ class Window:
 
             for row in range(self.board.getBoardRows()):
                 for col in range(self.board.getBoardCols()):
-                    color = COLOR_PATH
                     points = self.board.getFieldPoints(row, col)
-                    if points < -50:
-                        color = COLOR_WALL
-                    if points > 50:
-                        color = COLOR_TARGET
+                    color = fc.FIELD_QuePasa["Color"]
+                    for index in range(len(FIELDS)):
+                        if points == FIELDS[index]["Pts"]:
+                            color = FIELDS[index]["Color"]
+
                     field = [row, col]
                     pos = self.agent.getAgentPosition()
                     if pos[0] == row and pos[1] == col:

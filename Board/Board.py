@@ -1,18 +1,13 @@
 from random import random
-
+from Contstants import FieldConstants as fc
 import numpy as np
 
 from Board import BoardTemplates
 
-WALL_ICON = '#'
-PATH_ICON = '.'
-TARGET_ICON = 'Q'
-IKON_QUEPASA = '?'
 IKON_SEPPARATOR = ' '
-PTS_WALL = -100
-PTS_PATH = -1
-PTS_TARGET = 100
-PTS_QUEPASA = 0
+FIELDS = fc.FIELDS
+INDEX_WALL = fc.INDEX_WALL
+INDEX_PATH = fc.INDEX_PATH
 BOARD_TEMPLATE = BoardTemplates.TEMPLATE_1
 
 class Board:
@@ -39,14 +34,12 @@ class Board:
             arr = []
             for col in range(self.cols):
                 icon = self.boardTemplate[row][col]
-                if icon == PATH_ICON:
-                    arr.append(PTS_PATH)
-                elif icon == WALL_ICON:
-                    arr.append(PTS_WALL)
-                elif icon == TARGET_ICON:
-                    arr.append(PTS_TARGET)
-                else:
-                    arr.append(PTS_QUEPASA)
+                points = fc.FIELD_QuePasa["Pts"]
+                for index in range(len(FIELDS)):
+                    if icon == FIELDS[index]["Icon"]:
+                        points = FIELDS[index]["Pts"]
+
+                arr.append(points)
 
             self.board.append(arr)
 
@@ -55,7 +48,7 @@ class Board:
     def randomStart(self):
         pos_row = np.random.randint(self.rows)
         pos_col = np.random.randint(self.cols)
-        while self.boardTemplate[pos_row][pos_col] != PATH_ICON:
+        while self.boardTemplate[pos_row][pos_col] != FIELDS[INDEX_PATH]:
             pos_row = np.random.randint(self.rows)
             pos_col = np.random.randint(self.cols)
         return pos_row, pos_col
@@ -79,17 +72,12 @@ class Board:
             print(row, end="\t ")
             for col in range(self.cols):
                 points = self.board[row][col]
-                if points == PTS_WALL:
-                    print(WALL_ICON, end=IKON_SEPPARATOR)
+                icon = fc.FIELD_QuePasa["Icon"]
+                for index in range(len(FIELDS)):
+                    if points == FIELDS[index]["Pts"]:
+                        icon = FIELDS[index]["Icon"]
 
-                elif points == PTS_TARGET:
-                    print(TARGET_ICON, end=IKON_SEPPARATOR)
-
-                elif points == PTS_PATH:
-                    print(PATH_ICON, end=IKON_SEPPARATOR)
-
-                else:
-                    print(IKON_QUEPASA, end=IKON_SEPPARATOR)
+                print(icon, end=IKON_SEPPARATOR)
 
                 # print(self.board[row][col].reward,end=" ")
 
@@ -111,7 +99,7 @@ class Board:
         return
 
     def isWall(self, row, col):
-        if self.board[row][col] == PTS_PATH:
-            return False
-        else:
+        if self.board[row][col] == FIELDS[INDEX_WALL]["Pts"]:
             return True
+        else:
+            return False
