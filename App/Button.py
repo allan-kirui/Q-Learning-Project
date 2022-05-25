@@ -7,6 +7,7 @@ class Button:
     surface = None
     size = None
     screen = None
+    bg = None
 
     def __init__(self, screen, text, pos, font, bg="black", feedback=""):
         self.screen = screen
@@ -16,13 +17,14 @@ class Button:
             self.feedback = "text"
         else:
             self.feedback = feedback
-        self.change_text(text, bg)
+        self.bg = "black"
+        self.change_text(text)
 
-    def change_text(self, text, bg="black"):
+    def change_text(self, text):
         self.text = self.font.render(text, 1, pygame.Color("White"))
         self.size = self.text.get_size()
         self.surface = pygame.Surface(self.size)
-        self.surface.fill(bg)
+        self.surface.fill(self.bg)
         self.surface.blit(self.text, (0, 0))
         self.rect = pygame.Rect(self.x, self.y, self.size[0], self.size[1])
 
@@ -34,5 +36,9 @@ class Button:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if pygame.mouse.get_pressed()[0]:
                 if self.rect.collidepoint(x, y):
-                    self.change_text(self.feedback, bg="red")
+                    if self.bg == "red":
+                        self.bg = "navy"
+                    else:  self.bg = "red"
+                    self.change_text(self.feedback)
+
                     return True

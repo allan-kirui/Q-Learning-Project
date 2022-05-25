@@ -21,7 +21,8 @@ WINDOW_NAME = "AI Project ML AK"
 class Window:
     grid = None
     board = None
-    button = None
+    buttonMove = None
+    buttonReset = None
     agent = None
     windowWidth = None
     windowHeight = None
@@ -35,12 +36,19 @@ class Window:
         self.windowHeight = 300  # self.board.getBoardRows() * (FIELD_SIZE + MARGIN) + 5
         pygame.init()
         self.scr = pygame.display.set_mode([self.windowWidth, self.windowHeight])
-        self.button = Button(self.scr,
-                             "Move",
-                             (BUTTON_X, BUTTON_Y),
-                             font=30,
-                             bg="navy",
-                             feedback="Moved")
+        self.buttonMove = Button(self.scr,
+                                 "Move",
+                                 (BUTTON_X, BUTTON_Y),
+                                 font=30,
+                                 bg="navy",
+                                 feedback="Moved")
+
+        self.buttonReset = Button(self.scr,
+                                  "Reset",
+                                  (BUTTON_X + 100, BUTTON_Y),
+                                  font=30,
+                                  bg="navy",
+                                  feedback="Reset")
 
         self.agent = Agent(self.board)
         self.agent.setAgentPosition(3, 9)
@@ -59,12 +67,16 @@ class Window:
                     pos = pygame.mouse.get_pos()
                     column = pos[0] // (FIELD_SIZE + MARGIN)
                     row = pos[1] // (FIELD_SIZE + MARGIN)
-                if self.button.clickMove(event):
+                if self.buttonMove.clickMove(event):
                     pos = self.agent.getAgentPosition()
                     self.path = self.agent.get_shortest_path(pos[0], pos[1])
+                if self.buttonReset.clickMove(event):
+                    pos = self.agent.getAgentPosition()
+                    self.path = []
 
             self.scr.fill(COLOR_BACKGROUND)
-            self.button.show(),
+            self.buttonMove.show()
+            self.buttonReset.show()
 
             for row in range(self.board.getBoardRows()):
                 for col in range(self.board.getBoardCols()):
