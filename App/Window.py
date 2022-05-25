@@ -6,9 +6,12 @@ from Button import Button
 
 MARGIN = 5
 FIELD_SIZE = 20
+LEFT_PANEL_WIDTH = 200
+LEFT_PANEL_HEIGHT = 0
 FPS = 60
-BUTTON_X = 300
-BUTTON_Y = 200
+BUTTONS_POS_X = 20
+BUTTONS_POS_Y = 20
+BUTTONS_SPACING = 50
 COLOR_BACKGROUND = Colors.BLACK
 COLOR_PATH = Colors.WHITE
 COLOR_WALL = Colors.DARK_GREY
@@ -39,13 +42,13 @@ class Window:
 
         self.buttonRandom = Button(scr,
                                    "Randomize",
-                                   (button_x, button_y - 100),
+                                   (button_x, button_y + BUTTONS_SPACING),
                                    font=30,
                                    feedback="Randomize")
 
         self.buttonReset = Button(scr,
                                   "Reset",
-                                  (button_x + 100, button_y),
+                                  (button_x, button_y + BUTTONS_SPACING*2),
                                   font=30,
                                   feedback="Reset")
 
@@ -68,11 +71,11 @@ class Window:
     def __init__(self):
         self.grid = []
         self.board = Board()
-        self.windowWidth = 500  # self.board.getBoardCols() * (FIELD_SIZE + MARGIN) + 5
-        self.windowHeight = 300  # self.board.getBoardRows() * (FIELD_SIZE + MARGIN) + 5
+        self.windowWidth = self.board.getBoardCols() * (FIELD_SIZE + MARGIN) + 5 + LEFT_PANEL_WIDTH
+        self.windowHeight = self.board.getBoardRows() * (FIELD_SIZE + MARGIN) + 5 + LEFT_PANEL_HEIGHT
         pygame.init()
         self.scr = pygame.display.set_mode([self.windowWidth, self.windowHeight])
-        self.initButtons(self.scr, BUTTON_X, BUTTON_Y)
+        self.initButtons(self.scr, self.windowWidth - LEFT_PANEL_WIDTH + BUTTONS_POS_X, BUTTONS_POS_Y)
         self.agent = Agent(self.board)
         self.agent.setAgentPosition(3, 9)
         self.agent.train()
