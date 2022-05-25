@@ -94,8 +94,8 @@ class Window:
                     col = pos[0] // (FIELD_SIZE + MARGIN)
                     row = pos[1] // (FIELD_SIZE + MARGIN)
                     if 0 <= row <= self.board.getBoardRows() and 0 <= col <= self.board.getBoardCols():
-
                         self.agent.setAgentPosition(row, col)
+                        self.path = []
 
                 self.buttonActions(event)
 
