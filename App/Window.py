@@ -30,7 +30,6 @@ class Window:
     scr = None
     path = None
 
-
     def initButtons(self, scr, button_x, button_y):
         self.buttonMove = Button(scr,
                                  "Move",
@@ -39,10 +38,10 @@ class Window:
                                  feedback="Move")
 
         self.buttonRandom = Button(scr,
-                                 "Randomize",
-                                 (button_x, button_y-100),
-                                 font=30,
-                                 feedback="Randomize")
+                                   "Randomize",
+                                   (button_x, button_y - 100),
+                                   font=30,
+                                   feedback="Randomize")
 
         self.buttonReset = Button(scr,
                                   "Reset",
@@ -54,6 +53,17 @@ class Window:
         self.buttonMove.show()
         self.buttonReset.show()
         self.buttonRandom.show()
+
+    def buttonActions(self, event):
+        if self.buttonMove.clickMove(event):
+            pos = self.agent.getAgentPosition()
+            self.path = self.agent.get_shortest_path(pos[0], pos[1])
+        if self.buttonReset.clickMove(event):
+            self.path = []
+        if self.buttonRandom.clickMove(event):
+            self.path = []
+            pos = self.board.randomStart()
+            self.agent.setAgentPosition(pos[0], pos[1])
 
     def __init__(self):
         self.grid = []
@@ -80,14 +90,7 @@ class Window:
                     pos = pygame.mouse.get_pos()
                     column = pos[0] // (FIELD_SIZE + MARGIN)
                     row = pos[1] // (FIELD_SIZE + MARGIN)
-                if self.buttonMove.clickMove(event):
-                    pos = self.agent.getAgentPosition()
-                    self.path = self.agent.get_shortest_path(pos[0], pos[1])
-                if self.buttonReset.clickMove(event):
-                    self.path = []
-                if self.buttonRandom.clickMove(event):
-                    pos = self.board.randomStart()
-                    self.agent.setAgentPosition(pos[0], pos[1])
+                self.buttonActions(event)
 
             self.scr.fill(COLOR_BACKGROUND)
 
