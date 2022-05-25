@@ -8,6 +8,7 @@ IKON_SEPPARATOR = ' '
 FIELDS = fc.FIELDS
 INDEX_WALL = fc.INDEX_WALL
 INDEX_PATH = fc.INDEX_PATH
+INDEX_TARGET = fc.INDEX_TARGET
 BOARD_TEMPLATE = BoardTemplates.TEMPLATE_1
 
 class Board:
@@ -48,7 +49,7 @@ class Board:
     def randomStart(self):
         pos_row = np.random.randint(self.rows)
         pos_col = np.random.randint(self.cols)
-        while self.boardTemplate[pos_row][pos_col] != FIELDS[INDEX_PATH]:
+        while self.board[pos_row][pos_col] == FIELDS[INDEX_WALL]["Pts"]:
             pos_row = np.random.randint(self.rows)
             pos_col = np.random.randint(self.cols)
         return pos_row, pos_col
@@ -99,7 +100,7 @@ class Board:
         return
 
     def isWall(self, row, col):
-        if self.board[row][col] == FIELDS[INDEX_WALL]["Pts"]:
+        if self.board[row][col] == FIELDS[INDEX_WALL]["Pts"] or self.board[row][col] == FIELDS[INDEX_TARGET]["Pts"]:
             return True
         else:
             return False

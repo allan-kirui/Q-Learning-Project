@@ -60,11 +60,16 @@ class Window:
 
     def buttonActions(self, event):
         if self.buttonMove.clickMove(event):
+            print("buttonAction")
             pos = self.agent.getAgentPosition()
+            print("buttonAction2")
             self.path = self.agent.get_shortest_path(pos[0], pos[1])
+            print("action performed")
         if self.buttonReset.clickMove(event):
+            print("buttonAction")
             self.path = []
         if self.buttonRandom.clickMove(event):
+            print("buttonAction")
             self.path = []
             pos = self.board.randomStart()
             self.agent.setAgentPosition(pos[0], pos[1])

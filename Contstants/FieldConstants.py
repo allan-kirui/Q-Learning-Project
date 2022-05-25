@@ -18,6 +18,14 @@ Path = {
 FIELDS.append(Path)
 INDEX_PATH = 1
 
+Target = {
+    "Pts": 100,
+    "Icon": 'Q',
+    "Color": Colors.LIGHT_PURPLE
+}
+FIELDS.append(Target)
+INDEX_TARGET = 2
+
 Mud = {
     "Pts": -10,
     "Icon": '&',
@@ -25,12 +33,13 @@ Mud = {
 }
 FIELDS.append(Mud)
 
-Target = {
-    "Pts": 100,
-    "Icon": 'Q',
-    "Color": Colors.CYAN
+
+Fence = {
+    "Pts": -20,
+    "Icon": 'H',
+    "Color": Colors.PURPLE
 }
-FIELDS.append(Target)
+FIELDS.append(Fence)
 
 
 

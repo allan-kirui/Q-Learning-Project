@@ -67,11 +67,18 @@ class Agent:
 
     def get_shortest_path(self, start_row, start_col):
         if self.board.isWall(start_row, start_col):
+            print("gsp 1")
             return []
         else:
+            print("gsp 2")
             current_row, current_col = start_row, start_col
+            print("gsp 3")
             shortest_path = [[current_row, current_col]]
+            print("gsp 4")
             while not self.board.isWall(current_row, current_col):
+                print("current:")
+                print(current_row)
+                print(current_col)
                 action = self.get_next_action(current_row, current_col, 1)
                 current_row, current_col = self.get_next_loc(current_row, current_col, action)
                 shortest_path.append([current_row, current_col])
