@@ -29,6 +29,19 @@ class Window:
     scr = None
     path = None
 
+    def initButtons(self, scr, button_x, button_y):
+        self.buttonMove = Button(scr,
+                                 "Move",
+                                 (button_x, button_y),
+                                 font=30,
+                                 feedback="Moved")
+
+        self.buttonReset = Button(scr,
+                                  "Reset",
+                                  (button_x + 100, button_y),
+                                  font=30,
+                                  feedback="Reset")
+
     def __init__(self):
         self.grid = []
         self.board = Board()
@@ -36,20 +49,7 @@ class Window:
         self.windowHeight = 300  # self.board.getBoardRows() * (FIELD_SIZE + MARGIN) + 5
         pygame.init()
         self.scr = pygame.display.set_mode([self.windowWidth, self.windowHeight])
-        self.buttonMove = Button(self.scr,
-                                 "Move",
-                                 (BUTTON_X, BUTTON_Y),
-                                 font=30,
-                                 bg="navy",
-                                 feedback="Moved")
-
-        self.buttonReset = Button(self.scr,
-                                  "Reset",
-                                  (BUTTON_X + 100, BUTTON_Y),
-                                  font=30,
-                                  bg="navy",
-                                  feedback="Reset")
-
+        self.initButtons(self.scr,BUTTON_X,BUTTON_Y)
         self.agent = Agent(self.board)
         self.agent.setAgentPosition(3, 9)
         self.agent.train()

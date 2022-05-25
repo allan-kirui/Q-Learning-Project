@@ -9,7 +9,7 @@ class Button:
     screen = None
     bg = None
 
-    def __init__(self, screen, text, pos, font, bg="black", feedback=""):
+    def __init__(self, screen, text, pos, font, feedback=""):
         self.screen = screen
         self.x, self.y = pos
         self.font = pygame.font.SysFont("Arial", font)
