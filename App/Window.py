@@ -43,6 +43,7 @@ class Window:
                              feedback="Moved")
 
         self.agent = Agent(self.board)
+        self.agent.setAgentPosition(3, 9)
         self.agent.train()
 
     def run(self):
@@ -59,10 +60,11 @@ class Window:
                     column = pos[0] // (FIELD_SIZE + MARGIN)
                     row = pos[1] // (FIELD_SIZE + MARGIN)
                 if self.button.clickMove(event):
-                    self.path = self.agent.get_shortest_path(3, 9)
+                    pos = self.agent.getAgentPosition()
+                    self.path = self.agent.get_shortest_path(pos[0], pos[1])
 
             self.scr.fill(COLOR_BACKGROUND)
-            self.button.show()
+            self.button.show(),
 
             for row in range(self.board.getBoardRows()):
                 for col in range(self.board.getBoardCols()):
@@ -73,6 +75,9 @@ class Window:
                     if points > 50:
                         color = COLOR_TARGET
                     field = [row, col]
+                    pos = self.agent.getAgentPosition()
+                    if pos[0] == row and pos[1] == col:
+                        color = COLOR_AGENT
                     if self.path is not None and field in self.path:
                         color = COLOR_AGENT
 

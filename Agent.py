@@ -58,6 +58,13 @@ class Agent:
             next_col += 1
         return next_row, next_col
 
+    def setAgentPosition(self,row,col):
+        self.pos_row = row
+        self.pos_col = col
+
+    def getAgentPosition(self):
+        return self.pos_row, self.pos_col
+
     def get_shortest_path(self, start_row, start_col):
         if self.board.isWall(start_row, start_col):
             return []
