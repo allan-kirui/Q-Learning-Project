@@ -42,6 +42,10 @@ class Window:
                                   font=30,
                                   feedback="Reset")
 
+    def showButtons(self):
+        self.buttonMove.show()
+        self.buttonReset.show()
+
     def __init__(self):
         self.grid = []
         self.board = Board()
@@ -75,8 +79,8 @@ class Window:
                     self.path = []
 
             self.scr.fill(COLOR_BACKGROUND)
-            self.buttonMove.show()
-            self.buttonReset.show()
+
+            self.showButtons()
 
             for row in range(self.board.getBoardRows()):
                 for col in range(self.board.getBoardCols()):
