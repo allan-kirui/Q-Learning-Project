@@ -33,15 +33,12 @@ Mud = {
 }
 FIELDS.append(Mud)
 
-
 Fence = {
     "Pts": -20,
     "Icon": 'H',
     "Color": Colors.PURPLE
 }
 FIELDS.append(Fence)
-
-
 
 FIELD_QuePasa = {
     "Pts": -100,

@@ -8,7 +8,8 @@ from Button import Button
 MARGIN = 5
 FIELD_SIZE = 20
 LEFT_PANEL_WIDTH = 200
-LEFT_PANEL_HEIGHT = 0
+LEFT_PANEL_HEIGHT = 30
+COUNT_SIZE = 4
 FPS = 60
 BUTTONS_POS_X = 20
 BUTTONS_POS_Y = 20
@@ -17,7 +18,6 @@ COLOR_BACKGROUND = Colors.BLACK
 COLOR_AGENT = Colors.PINK
 FIELDS = fc.FIELDS
 INDEX_WALL = fc.INDEX_WALL
-
 
 WINDOW_NAME = "AI Project ML AK"
 
@@ -49,7 +49,7 @@ class Window:
 
         self.buttonReset = Button(scr,
                                   "Reset",
-                                  (button_x, button_y + BUTTONS_SPACING*2),
+                                  (button_x, button_y + BUTTONS_SPACING * 2),
                                   font=30,
                                   feedback="Reset")
 
@@ -73,6 +73,18 @@ class Window:
             self.path = []
             pos = self.board.randomStart()
             self.agent.setAgentPosition(pos[0], pos[1])
+
+    def display_indexes(self, row, count, font):
+        text = font.render(str(count), 1, pygame.Color("White"))
+        text_size = FIELD_SIZE, FIELD_SIZE
+        surface = pygame.Surface(text_size)
+        surface.fill("black")
+        surface.blit(text, (3, 0))
+        change = (MARGIN + FIELD_SIZE) * row + MARGIN * COUNT_SIZE
+        pos = 0, change
+        self.scr.blit(surface, pos)
+        pos2 = change, 0
+        self.scr.blit(surface, pos2)
 
     def __init__(self):
         self.grid = []
@@ -110,7 +122,12 @@ class Window:
 
             self.showButtons()
 
+            font = pygame.font.SysFont("Arial", 15)
+            count = 0
             for row in range(self.board.getBoardRows()):
+                # Row numbers
+                self.display_indexes(row, count, font)
+                count += 1
                 for col in range(self.board.getBoardCols()):
                     points = self.board.getFieldPoints(row, col)
                     color = fc.FIELD_QuePasa["Color"]
@@ -127,8 +144,8 @@ class Window:
 
                     pygame.draw.rect(self.scr,
                                      color,
-                                     [(MARGIN + FIELD_SIZE) * col + MARGIN,
-                                      (MARGIN + FIELD_SIZE) * row + MARGIN,
+                                     [(MARGIN + FIELD_SIZE) * col + MARGIN * COUNT_SIZE,
+                                      (MARGIN + FIELD_SIZE) * row + MARGIN * COUNT_SIZE,
                                       FIELD_SIZE,
                                       FIELD_SIZE])
 
