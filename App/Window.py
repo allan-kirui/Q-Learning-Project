@@ -102,11 +102,15 @@ class Window:
         pos2 = change, 0
         self.scr.blit(surface, pos2)
 
-    def display_rewards(self, row, col, font, points, color):
-        text = font.render(str(points), 1, pygame.Color("Black"))
+    def display_rewards(self, row, col, font, points, color_field):
+        if color_field == FIELDS[1]["Color"]:
+            color_text = "Black"
+        else:
+            color_text = "White"
+        text = font.render(str(points), 1, pygame.Color(color_text))
         text_size = FIELD_SIZE, FIELD_SIZE
         surface = pygame.Surface(text_size)
-        surface.fill(color)
+        surface.fill(color_field)
         surface.blit(text, (3, 0))
         pos = ((MARGIN + FIELD_SIZE) * col + MARGIN * COUNT_SIZE, (MARGIN + FIELD_SIZE) * row + MARGIN * COUNT_SIZE)
         self.scr.blit(surface, pos)
