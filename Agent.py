@@ -40,10 +40,11 @@ class Agent:
     def get_next_action(self, current_row, current_col, eps):
         # if a randomly chosen value between 0 and 1 is less than epsilon,
         # then choose the most promising value from the Q-table for this state.
-        if np.random.rand() < eps:
-            return np.argmax(self.q_values[current_row, current_col])
-        else:  # choose a random action
-            return np.random.randint(4)
+        # if current_row < self.environment_col and current_col < self.environment_row:
+            if np.random.rand() < eps:
+                return np.argmax(self.q_values[current_row, current_col])
+            else:  # choose a random action
+                return np.random.randint(4)
 
     def get_next_loc(self, current_row, current_col, action):
         next_row = current_row

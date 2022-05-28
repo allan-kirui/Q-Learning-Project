@@ -100,7 +100,9 @@ class Board:
         return
 
     def isWall(self, row, col):
-        if self.board[row][col] == FIELDS[INDEX_WALL]["Pts"] or self.board[row][col] == FIELDS[INDEX_TARGET]["Pts"]:
-            return True
-        else:
-            return False
+        # if row < self.cols and col < self.rows:
+        #     print(row,col)
+            if self.board[row][col] == FIELDS[INDEX_WALL]["Pts"] or self.board[row][col] == FIELDS[INDEX_TARGET]["Pts"]:
+                return True
+            else:
+                return False

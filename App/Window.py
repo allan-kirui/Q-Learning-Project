@@ -2,7 +2,7 @@ import pygame
 from Agent import Agent
 from Contstants import Colors
 from Contstants import FieldConstants as fc
-from Board.Board import Board
+from Board.Board import Board, INDEX_PATH
 from Button import Button
 
 MARGIN = 5
@@ -103,7 +103,7 @@ class Window:
         self.scr.blit(surface, pos2)
 
     def display_rewards(self, row, col, font, points, color_field):
-        if color_field == FIELDS[1]["Color"]:
+        if color_field == FIELDS[INDEX_PATH]["Color"]:
             color_text = "Black"
         else:
             color_text = "White"
@@ -140,7 +140,7 @@ class Window:
                     pos = pygame.mouse.get_pos()
                     col = pos[0] // (FIELD_SIZE + MARGIN)
                     row = pos[1] // (FIELD_SIZE + MARGIN)
-                    if 0 <= row <= self.board.getBoardRows() and 0 <= col <= self.board.getBoardCols():
+                    if 0 <= row < self.board.getBoardRows() and 0 <= col < self.board.getBoardCols():
                         if not self.board.isWall(row, col):
                             self.agent.setAgentPosition(row, col)
                             self.path = []
