@@ -6,7 +6,7 @@ from Board.Board import Board
 from Button import Button
 
 MARGIN = 5
-FIELD_SIZE = 20
+FIELD_SIZE = 40
 LEFT_PANEL_WIDTH = 200
 LEFT_PANEL_HEIGHT = 30
 COUNT_SIZE = 4
@@ -28,11 +28,13 @@ class Window:
     buttonMove = None
     buttonReset = None
     buttonRandom = None
+    buttonRewards = None
     agent = None
     windowWidth = None
     windowHeight = None
     scr = None
     path = None
+    disp_rewards = False
 
     def initButtons(self, scr, button_x, button_y):
         self.buttonMove = Button(scr,
@@ -52,11 +54,17 @@ class Window:
                                   (button_x, button_y + BUTTONS_SPACING * 2),
                                   font=30,
                                   feedback="Reset")
+        self.buttonRewards = Button(scr,
+                                    "Rewards",
+                                    (button_x, button_y + BUTTONS_SPACING * 3),
+                                    font=30,
+                                    feedback="Rewards")
 
     def showButtons(self):
         self.buttonMove.show()
         self.buttonReset.show()
         self.buttonRandom.show()
+        self.buttonRewards.show()
 
     def buttonActions(self, event):
         if self.buttonMove.clickMove(event):
@@ -73,18 +81,35 @@ class Window:
             self.path = []
             pos = self.board.randomStart()
             self.agent.setAgentPosition(pos[0], pos[1])
+        if self.buttonRewards.clickMove(event):
+            print("buttonAction")
+            if not self.disp_rewards:
+                self.disp_rewards = True
+            else:
+                self.disp_rewards = False
 
-    def display_indexes(self, row, count, font):
-        text = font.render(str(count), 1, pygame.Color("White"))
-        text_size = FIELD_SIZE, FIELD_SIZE
+    def display_indexes(self, row, font):
+        text = font.render(str(row), 1, pygame.Color("White"))
+        # TODO: the minus part of the next line, figure out why for FIELD_SIZE = 50, without this minus part it
+        #  displays weird
+        text_size = FIELD_SIZE, FIELD_SIZE-3/5*FIELD_SIZE
         surface = pygame.Surface(text_size)
         surface.fill("black")
-        surface.blit(text, (3, 0))
+        surface.blit(text, (0, 0))
         change = (MARGIN + FIELD_SIZE) * row + MARGIN * COUNT_SIZE
         pos = 0, change
         self.scr.blit(surface, pos)
         pos2 = change, 0
         self.scr.blit(surface, pos2)
+
+    def display_rewards(self, row, col, font, points, color):
+        text = font.render(str(points), 1, pygame.Color("Black"))
+        text_size = FIELD_SIZE, FIELD_SIZE
+        surface = pygame.Surface(text_size)
+        surface.fill(color)
+        surface.blit(text, (3, 0))
+        pos = ((MARGIN + FIELD_SIZE) * col + MARGIN * COUNT_SIZE, (MARGIN + FIELD_SIZE) * row + MARGIN * COUNT_SIZE)
+        self.scr.blit(surface, pos)
 
     def __init__(self):
         self.grid = []
@@ -125,12 +150,10 @@ class Window:
             font = pygame.font.SysFont("Arial", 15)
             count = 0
             for row in range(self.board.getBoardRows()):
-                # Row numbers
-                self.display_indexes(row, count, font)
-                count += 1
+                # Row and column indexes
+                self.display_indexes(row, font)
                 for col in range(self.board.getBoardCols()):
                     points = self.board.getFieldPoints(row, col)
-                    color = fc.FIELD_QuePasa["Color"]
                     for index in range(len(FIELDS)):
                         if points == FIELDS[index]["Pts"]:
                             color = FIELDS[index]["Color"]
@@ -142,12 +165,16 @@ class Window:
                     if self.path is not None and field in self.path:
                         color = COLOR_AGENT
 
-                    pygame.draw.rect(self.scr,
-                                     color,
-                                     [(MARGIN + FIELD_SIZE) * col + MARGIN * COUNT_SIZE,
-                                      (MARGIN + FIELD_SIZE) * row + MARGIN * COUNT_SIZE,
-                                      FIELD_SIZE,
-                                      FIELD_SIZE])
+                    # Displaying values of FIELDS
+                    if self.disp_rewards:
+                        self.display_rewards(row, col, font, points, color)
+                    else:
+                        pygame.draw.rect(self.scr,
+                                         color,
+                                         [(MARGIN + FIELD_SIZE) * col + MARGIN * COUNT_SIZE,
+                                          (MARGIN + FIELD_SIZE) * row + MARGIN * COUNT_SIZE,
+                                          FIELD_SIZE,
+                                          FIELD_SIZE])
 
             pygame.display.flip()
             clock.tick(FPS)
