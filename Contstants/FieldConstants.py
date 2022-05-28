@@ -36,7 +36,7 @@ FIELDS.append(Mud)
 Fence = {
     "Pts": -20,
     "Icon": 'H',
-    "Color": Colors.PURPLE
+    "Color": Colors.DARK_GREEN
 }
 FIELDS.append(Fence)
 
