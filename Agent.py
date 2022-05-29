@@ -5,7 +5,7 @@ actions = ['up', 'right', 'down', 'left']
 
 
 class Agent:
-    TRAINING_SESSIONS_NUMBER = 100
+    TRAINING_SESSIONS_NUMBER = 5000
 
     pos_row = None
     pos_col = None
