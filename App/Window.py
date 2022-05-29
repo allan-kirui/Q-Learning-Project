@@ -37,6 +37,19 @@ class Window:
     path = None
     disp_rewards = False
 
+    def __init__(self):
+        self.grid = []
+        self.board = Board()
+        self.windowWidth = self.board.getBoardCols() * (FIELD_SIZE + MARGIN) + 5 + LEFT_PANEL_WIDTH
+        self.windowHeight = self.board.getBoardRows() * (FIELD_SIZE + MARGIN) + 5 + LEFT_PANEL_HEIGHT
+        pygame.init()
+        self.scr = pygame.display.set_mode([self.windowWidth, self.windowHeight])
+        self.initButtons(self.scr, self.windowWidth - LEFT_PANEL_WIDTH + BUTTONS_POS_X, BUTTONS_POS_Y)
+        self.agent = Agent(self.board)
+        pos = self.board.randomStart()
+        self.agent.setAgentPosition(pos[0], pos[1])
+        self.agent.train()
+
     def initButtons(self, scr, button_x, button_y):
         self.buttonMove = Button(scr,
                                  "Move",
@@ -87,7 +100,7 @@ class Window:
         text = font.render(str(row), 1, pygame.Color("White"))
         # TODO: the minus part of the next line, figure out why for FIELD_SIZE = 50, without this minus part it
         #  displays weird
-        text_size = FIELD_SIZE, FIELD_SIZE-3/5*FIELD_SIZE
+        text_size = FIELD_SIZE, FIELD_SIZE - 3 / 5 * FIELD_SIZE
         surface = pygame.Surface(text_size)
         surface.fill("black")
         surface.blit(text, (0, 0))
@@ -109,18 +122,6 @@ class Window:
         surface.blit(text, (3, 0))
         pos = ((MARGIN + FIELD_SIZE) * col + MARGIN * COUNT_SIZE, (MARGIN + FIELD_SIZE) * row + MARGIN * COUNT_SIZE)
         self.scr.blit(surface, pos)
-
-    def __init__(self):
-        self.grid = []
-        self.board = Board()
-        self.windowWidth = self.board.getBoardCols() * (FIELD_SIZE + MARGIN) + 5 + LEFT_PANEL_WIDTH
-        self.windowHeight = self.board.getBoardRows() * (FIELD_SIZE + MARGIN) + 5 + LEFT_PANEL_HEIGHT
-        pygame.init()
-        self.scr = pygame.display.set_mode([self.windowWidth, self.windowHeight])
-        self.initButtons(self.scr, self.windowWidth - LEFT_PANEL_WIDTH + BUTTONS_POS_X, BUTTONS_POS_Y)
-        self.agent = Agent(self.board)
-        self.agent.setAgentPosition(3, 9)
-        self.agent.train()
 
     def run(self):
         pygame.display.set_caption(WINDOW_NAME)
@@ -179,5 +180,3 @@ class Window:
             pygame.display.flip()
             clock.tick(FPS)
         pygame.quit()
-
-
