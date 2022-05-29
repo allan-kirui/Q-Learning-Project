@@ -41,10 +41,12 @@ class Agent:
         # if a randomly chosen value between 0 and 1 is less than epsilon,
         # then choose the most promising value from the Q-table for this state.
         # if current_row < self.environment_col and current_col < self.environment_row:
-            if np.random.rand() < eps:
-                return np.argmax(self.q_values[current_row, current_col])
-            else:  # choose a random action
-                return np.random.randint(4)
+        rando = np.random.rand()
+        if rando < eps:
+            max = np.argmax(self.q_values[current_row, current_col])
+            return max
+        else:  # choose a random action
+            return np.random.randint(4)
 
     def get_next_loc(self, current_row, current_col, action):
         next_row = current_row
@@ -59,7 +61,7 @@ class Agent:
             next_col += 1
         return next_row, next_col
 
-    def setAgentPosition(self,row,col):
+    def setAgentPosition(self, row, col):
         self.pos_row = row
         self.pos_col = col
 
@@ -88,6 +90,8 @@ class Agent:
                 old_row, old_col = current_row, current_col
                 current_row, current_col = self.get_next_loc(current_row, current_col, action)
                 reward = self.board.board[current_row][current_col]
+                if reward == -50 or reward == -6:
+                    pass
                 old_q_val = self.q_values[old_row, old_col, action]
                 temporal_difference = reward + (self.discount_factor * np.max(
                     self.q_values[current_row, current_col])) - old_q_val
