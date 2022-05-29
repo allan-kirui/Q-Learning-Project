@@ -7,6 +7,7 @@ from Button import Button
 
 MARGIN = 5
 FIELD_SIZE = 40
+INDEX_THICNESS = 20
 LEFT_PANEL_WIDTH = 200
 LEFT_PANEL_HEIGHT = 30
 COUNT_SIZE = 4
@@ -68,16 +69,11 @@ class Window:
 
     def buttonActions(self, event):
         if self.buttonMove.clickMove(event):
-            print("buttonAction")
             pos = self.agent.getAgentPosition()
-            print("buttonAction2")
             self.path = self.agent.get_shortest_path(pos[0], pos[1])
-            print("action performed")
         if self.buttonReset.clickMove(event):
-            print("buttonAction")
             self.path = []
         if self.buttonRandom.clickMove(event):
-            print("buttonAction")
             self.path = []
             pos = self.board.randomStart()
             self.agent.setAgentPosition(pos[0], pos[1])
@@ -138,8 +134,8 @@ class Window:
                     break
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     pos = pygame.mouse.get_pos()
-                    col = pos[0] // (FIELD_SIZE + MARGIN)
-                    row = pos[1] // (FIELD_SIZE + MARGIN)
+                    col = (pos[0] - 15) // (FIELD_SIZE + MARGIN)
+                    row = (pos[1] - 15) // (FIELD_SIZE + MARGIN)
                     if 0 <= row < self.board.getBoardRows() and 0 <= col < self.board.getBoardCols():
                         if not self.board.isWall(row, col):
                             self.agent.setAgentPosition(row, col)
