@@ -27,14 +27,14 @@ FIELDS.append(Target)
 INDEX_TARGET = 2
 
 Mud = {
-    "Pts": -50,
+    "Pts": -10,
     "Icon": '&',
     "Color": Colors.BROWN
 }
 FIELDS.append(Mud)
 
 Fence = {
-    "Pts": -6,
+    "Pts": -30,
     "Icon": 'H',
     "Color": Colors.DARK_GREEN
 }
