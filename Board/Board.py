@@ -22,6 +22,7 @@ class Board:
         print(":: INITIATING BOARD ::")
         self.rows = len(BOARD_TEMPLATE)
         self.cols = len(BOARD_TEMPLATE[0])
+        print("board size: ", self.rows, "x", self.cols)
         self.boardTemplate = BOARD_TEMPLATE
         self.fillBoard()
         print(self.board)
