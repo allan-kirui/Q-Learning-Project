@@ -78,7 +78,6 @@ class Window:
             pos = self.board.randomStart()
             self.agent.setAgentPosition(pos[0], pos[1])
         if self.buttonRewards.clickMove(event):
-            print("buttonAction")
             if not self.disp_rewards:
                 self.disp_rewards = True
             else:
