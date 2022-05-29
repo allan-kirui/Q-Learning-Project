@@ -6,7 +6,7 @@ from Board.Board import Board, INDEX_PATH
 from App.Button import Button
 
 MARGIN = 5
-FIELD_SIZE = 1
+FIELD_SIZE = 3
 INDEX_THICNESS = 20
 LEFT_PANEL_WIDTH = 200
 LEFT_PANEL_HEIGHT = 30
