@@ -11,8 +11,8 @@ INDEX_PATH = fc.INDEX_PATH
 INDEX_TARGET = fc.INDEX_TARGET
 BOARD_TEMPLATE = BoardTemplates.TEMPLATE_1
 
-class Board:
 
+class Board:
     rows = None
     cols = None
     board = None
@@ -27,7 +27,6 @@ class Board:
         print(self.board)
         self.printBoard()
         return
-
 
     def fillBoard(self):
         self.board = []
@@ -101,8 +100,8 @@ class Board:
 
     def isWall(self, row, col):
         # if row < self.cols and col < self.rows:
-        #     print(row,col)
-            if self.board[row][col] == FIELDS[INDEX_WALL]["Pts"] or self.board[row][col] == FIELDS[INDEX_TARGET]["Pts"]:
-                return True
-            else:
-                return False
+        # print(row, col)
+        if self.board[row][col] == FIELDS[INDEX_WALL]["Pts"] or self.board[row][col] == FIELDS[INDEX_TARGET]["Pts"]:
+            return True
+        else:
+            return False

@@ -3,7 +3,7 @@ from Agent import Agent
 from Contstants import Colors
 from Contstants import FieldConstants as fc
 from Board.Board import Board, INDEX_PATH
-from Button import Button
+from App.Button import Button
 
 MARGIN = 5
 FIELD_SIZE = 40
@@ -135,6 +135,7 @@ class Window:
                     pos = pygame.mouse.get_pos()
                     col = (pos[0] - 15) // (FIELD_SIZE + MARGIN)
                     row = (pos[1] - 15) // (FIELD_SIZE + MARGIN)
+                    # print(row,col)
                     if 0 <= row < self.board.getBoardRows() and 0 <= col < self.board.getBoardCols():
                         if not self.board.isWall(row, col):
                             self.agent.setAgentPosition(row, col)
@@ -180,6 +181,3 @@ class Window:
         pygame.quit()
 
 
-if __name__ == '__main__':
-    window = Window()
-    window.run()
