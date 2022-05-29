@@ -46,7 +46,8 @@ class Window:
         self.scr = pygame.display.set_mode([self.windowWidth, self.windowHeight])
         self.initButtons(self.scr, self.windowWidth - LEFT_PANEL_WIDTH + BUTTONS_POS_X, BUTTONS_POS_Y)
         self.agent = Agent(self.board)
-        self.agent.setAgentPosition(3, 9)
+        pos = self.board.randomStart()
+        self.agent.setAgentPosition(pos[0], pos[1])
         self.agent.train()
 
     def initButtons(self, scr, button_x, button_y):
